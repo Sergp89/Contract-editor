@@ -22,7 +22,7 @@ class SkeletonLoader(ft.UserControl):
         return ft.Container(
             height=self.height,
             width=self.width,
-            bgcolor=ft.colors.ELEVATION_2,
+            bgcolor=ft.colors.with_opacity(0.1, ft.colors.ON_SURFACE),
             border_radius=ft.border_radius.all(8),
             opacity=0.3,
             animate_opacity=300,
@@ -146,10 +146,10 @@ class ContentArea(ft.UserControl):
         """Строит компонент области контента."""
         self.animated_switcher = ft.AnimatedSwitcher(
             content=self._build_skeleton() if self._loading else self._build_clients_content(),
-            transition=ft.AnimatedSwitcherTransition.FADE_THROUGH,
+            transition=ft.AnimatedSwitcherTransition.FADE,
             duration=300,
-            switch_in_curve=ft.AnimationCurve.SLIDE_LEFT,
-            switch_out_curve=ft.AnimationCurve.SLIDE_LEFT,
+            switch_in_curve=ft.AnimationCurve.EASE_IN_OUT,
+            switch_out_curve=ft.AnimationCurve.EASE_IN_OUT,
         )
 
         return ft.Container(
