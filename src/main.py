@@ -21,7 +21,7 @@ def main(page: ft.Page):
 
     # Создаем и добавляем dashboard
     dashboard = create_dashboard(page)
-    page.add(dashboard)
+    page.add(dashboard.build())
 
 
 if __name__ == "__main__":
