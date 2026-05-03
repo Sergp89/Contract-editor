@@ -24,32 +24,32 @@ class NavigationRail:
             {
                 "id": "clients",
                 "label": "Клиенты",
-                "icon": ft.Icons.PEOPLE_OUTLINED,
-                "selected_icon": ft.Icons.PEOPLE,
+                "icon": ft.icons.PEOPLE_OUTLINED,
+                "selected_icon": ft.icons.PEOPLE,
             },
             {
                 "id": "contracts",
                 "label": "Договоры",
-                "icon": ft.Icons.DESCRIPTION_OUTLINED,
-                "selected_icon": ft.Icons.DESCRIPTION,
+                "icon": ft.icons.DESCRIPTION_OUTLINED,
+                "selected_icon": ft.icons.DESCRIPTION,
             },
             {
                 "id": "templates",
                 "label": "Шаблоны",
-                "icon": ft.Icons.CONTENT_PASTE_OUTLINED,
-                "selected_icon": ft.Icons.CONTENT_PASTE,
+                "icon": ft.icons.CONTENT_PASTE_OUTLINED,
+                "selected_icon": ft.icons.CONTENT_PASTE,
             },
             {
                 "id": "ai_assistant",
                 "label": "AI-помощник",
-                "icon": ft.Icons.SMART_TOY_OUTLINED,
-                "selected_icon": ft.Icons.SMART_TOY,
+                "icon": ft.icons.SMART_TOY_OUTLINED,
+                "selected_icon": ft.icons.SMART_TOY,
             },
             {
                 "id": "settings",
                 "label": "Настройки",
-                "icon": ft.Icons.SETTINGS_OUTLINED,
-                "selected_icon": ft.Icons.SETTINGS,
+                "icon": ft.icons.SETTINGS_OUTLINED,
+                "selected_icon": ft.icons.SETTINGS,
             },
         ]
 
@@ -78,7 +78,7 @@ class NavigationRail:
             min_width=100,
             min_extended_width=200,
             leading=ft.FloatingActionButton(
-                icon=ft.Icons.MENU,
+                icon=ft.icons.MENU,
                 on_click=self._toggle_collapse,
                 animate_opacity=200,
             ),
@@ -86,8 +86,7 @@ class NavigationRail:
             destinations=self._build_destinations(),
             label_type=ft.NavigationRailLabelType.NONE if self.collapsed else ft.NavigationRailLabelType.ALL,
             on_change=self._on_destination_change,
-            bgcolor=ft.Colors.SURFACE,
-            elevation=2,
+            bgcolor=ft.colors.SURFACE,
         )
 
         # Обертка с анимацией scale при сворачивании
@@ -136,11 +135,11 @@ class ResponsiveNavigation:
         drawer_items = []
         # TODO: интегрировать с моделью данных
         destinations = [
-            {"id": "clients", "label": "Клиенты", "icon": ft.Icons.PEOPLE_OUTLINED},
-            {"id": "contracts", "label": "Договоры", "icon": ft.Icons.DESCRIPTION_OUTLINED},
-            {"id": "templates", "label": "Шаблоны", "icon": ft.Icons.CONTENT_PASTE_OUTLINED},
-            {"id": "ai_assistant", "label": "AI-помощник", "icon": ft.Icons.SMART_TOY_OUTLINED},
-            {"id": "settings", "label": "Настройки", "icon": ft.Icons.SETTINGS_OUTLINED},
+            {"id": "clients", "label": "Клиенты", "icon": ft.icons.PEOPLE_OUTLINED},
+            {"id": "contracts", "label": "Договоры", "icon": ft.icons.DESCRIPTION_OUTLINED},
+            {"id": "templates", "label": "Шаблоны", "icon": ft.icons.CONTENT_PASTE_OUTLINED},
+            {"id": "ai_assistant", "label": "AI-помощник", "icon": ft.icons.SMART_TOY_OUTLINED},
+            {"id": "settings", "label": "Настройки", "icon": ft.icons.SETTINGS_OUTLINED},
         ]
 
         for dest in destinations:
@@ -157,7 +156,7 @@ class ResponsiveNavigation:
                 controls=[
                     ft.Container(
                         content=ft.Text("Меню", size=20, weight=ft.FontWeight.BOLD),
-                        padding=ft.Padding.all(16),
+                        padding=ft.padding.all(16),
                     ),
                     ft.Divider(),
                     *drawer_items,
