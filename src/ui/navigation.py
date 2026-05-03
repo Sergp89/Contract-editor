@@ -24,31 +24,31 @@ class NavigationRail:
             {
                 "id": "clients",
                 "label": "Клиенты",
-                "icon": ft.icons.PEOPLE_OUTLINED,
+                "icon": ft.icons.PEOPLE_OUTLINE,
                 "selected_icon": ft.icons.PEOPLE,
             },
             {
                 "id": "contracts",
                 "label": "Договоры",
-                "icon": ft.icons.DESCRIPTION_OUTLINED,
+                "icon": ft.icons.DESCRIPTION_OUTLINE,
                 "selected_icon": ft.icons.DESCRIPTION,
             },
             {
                 "id": "templates",
                 "label": "Шаблоны",
-                "icon": ft.icons.CONTENT_PASTE_OUTLINED,
+                "icon": ft.icons.CONTENT_PASTE_OUTLINE,
                 "selected_icon": ft.icons.CONTENT_PASTE,
             },
             {
                 "id": "ai_assistant",
                 "label": "AI-помощник",
-                "icon": ft.icons.SMART_TOY_OUTLINED,
+                "icon": ft.icons.SMART_TOY_OUTLINE,
                 "selected_icon": ft.icons.SMART_TOY,
             },
             {
                 "id": "settings",
                 "label": "Настройки",
-                "icon": ft.icons.SETTINGS_OUTLINED,
+                "icon": ft.icons.SETTINGS_OUTLINE,
                 "selected_icon": ft.icons.SETTINGS,
             },
         ]
@@ -135,11 +135,11 @@ class ResponsiveNavigation:
         drawer_items = []
         # TODO: интегрировать с моделью данных
         destinations = [
-            {"id": "clients", "label": "Клиенты", "icon": ft.icons.PEOPLE_OUTLINED},
-            {"id": "contracts", "label": "Договоры", "icon": ft.icons.DESCRIPTION_OUTLINED},
-            {"id": "templates", "label": "Шаблоны", "icon": ft.icons.CONTENT_PASTE_OUTLINED},
-            {"id": "ai_assistant", "label": "AI-помощник", "icon": ft.icons.SMART_TOY_OUTLINED},
-            {"id": "settings", "label": "Настройки", "icon": ft.icons.SETTINGS_OUTLINED},
+            {"id": "clients", "label": "Клиенты", "icon": ft.icons.PEOPLE_OUTLINE},
+            {"id": "contracts", "label": "Договоры", "icon": ft.icons.DESCRIPTION_OUTLINE},
+            {"id": "templates", "label": "Шаблоны", "icon": ft.icons.CONTENT_PASTE_OUTLINE},
+            {"id": "ai_assistant", "label": "AI-помощник", "icon": ft.icons.SMART_TOY_OUTLINE},
+            {"id": "settings", "label": "Настройки", "icon": ft.icons.SETTINGS_OUTLINE},
         ]
 
         for dest in destinations:
