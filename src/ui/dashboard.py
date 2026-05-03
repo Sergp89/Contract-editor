@@ -6,14 +6,13 @@
 import flet as ft
 
 
-class SkeletonLoader(ft.UserControl):
+class SkeletonLoader:
     """Скелетон-заглушка для состояния загрузки.
 
     Использует animate_opacity для плавного появления.
     """
 
     def __init__(self, height=100, width=None):
-        super().__init__()
         self.height = height
         self.width = width
 
@@ -29,16 +28,16 @@ class SkeletonLoader(ft.UserControl):
         )
 
 
-class ContentArea(ft.UserControl):
+class ContentArea:
     """Основная область контента с анимацией переключения разделов.
 
     Использует ft.AnimatedSwitcher с анимацией fadeThrough + slideLeft (300ms).
     """
 
     def __init__(self):
-        super().__init__()
         self._current_section = "clients"
         self._loading = True
+        self.animated_switcher = None
 
         # TODO: интегрировать с моделью данных
         self.section_content = {
@@ -51,12 +50,13 @@ class ContentArea(ft.UserControl):
 
     def _build_skeleton(self):
         """Создает скелетон-заглушки для состояния загрузки."""
+        skeleton = SkeletonLoader()
         return ft.Column(
             controls=[
-                SkeletonLoader(height=60, width=300),
-                SkeletonLoader(height=200),
-                SkeletonLoader(height=200),
-                SkeletonLoader(height=150),
+                skeleton.build(),
+                skeleton.build(),
+                skeleton.build(),
+                skeleton.build(),
             ],
             spacing=16,
         )
@@ -132,15 +132,14 @@ class ContentArea(ft.UserControl):
         """Устанавливает текущий раздел и запускает анимацию переключения."""
         self._current_section = section_id
         self._loading = False
-        self.animated_switcher.content = self._get_current_content()
-        self.update()
+        if self.animated_switcher:
+            self.animated_switcher.content = self._get_current_content()
 
     def set_loading(self, loading: bool):
         """Устанавливает состояние загрузки."""
         self._loading = loading
-        if self._loading:
+        if self._loading and self.animated_switcher:
             self.animated_switcher.content = self._build_skeleton()
-            self.update()
 
     def build(self):
         """Строит компонент области контента."""
@@ -159,14 +158,15 @@ class ContentArea(ft.UserControl):
         )
 
 
-class TopAppBar(ft.UserControl):
+class TopAppBar:
     """Верхняя панель с поиском и переключателем темы."""
 
     def __init__(self, on_theme_toggle, on_search_change=None):
-        super().__init__()
         self.on_theme_toggle = on_theme_toggle
         self.on_search_change = on_search_change
         self._is_dark = False
+        self.search_field = None
+        self.theme_toggle = None
 
     def _toggle_theme(self, e):
         """Переключает тему приложения."""
@@ -216,7 +216,7 @@ class TopAppBar(ft.UserControl):
         )
 
 
-class Dashboard(ft.UserControl):
+class Dashboard:
     """Главный экран приложения (dashboard).
 
     Содержит:
@@ -230,15 +230,20 @@ class Dashboard(ft.UserControl):
     """
 
     def __init__(self, page: ft.Page):
-        super().__init__()
         self.page = page
         self._current_section = "clients"
         self._is_mobile = False
+        self.content_area = None
+        self.navigation = None
+        self.sidebar = None
+        self.top_bar = None
+        self.main_row = None
 
     def _on_nav_change(self, section_id: str):
         """Обработчик переключения раздела навигации."""
         self._current_section = section_id
-        self.content_area.set_section(section_id)
+        if self.content_area:
+            self.content_area.set_section(section_id)
 
     def _on_theme_toggle(self, is_dark: bool):
         """Обработчик переключения темы."""
@@ -252,19 +257,22 @@ class Dashboard(ft.UserControl):
 
         if self._is_mobile:
             # На мобильных скрываем sidebar и показываем hamburger
-            self.sidebar.visible = False
+            if self.sidebar:
+                self.sidebar.visible = False
             self.page.drawer = self.navigation.build_drawer()
         else:
-            self.sidebar.visible = True
+            if self.sidebar:
+                self.sidebar.visible = True
             self.page.drawer = None
 
-        self.update()
+        self.page.update()
 
     def _on_page_loaded(self, e):
         """Обработчик загрузки страницы - убираем скелетон после загрузки данных."""
         # Имитация загрузки данных (в реальности здесь будет вызов API)
         # TODO: интегрировать с моделью данных
-        self.content_area.set_loading(False)
+        if self.content_area:
+            self.content_area.set_loading(False)
 
     def build(self):
         """Строит главный экран dashboard."""
@@ -290,9 +298,9 @@ class Dashboard(ft.UserControl):
                 ft.VerticalDivider(width=1),
                 ft.Column(
                     controls=[
-                        self.top_bar,
+                        self.top_bar.build(),
                         ft.Divider(height=1),
-                        self.content_area,
+                        self.content_area.build(),
                     ],
                     spacing=0,
                     expand=True,

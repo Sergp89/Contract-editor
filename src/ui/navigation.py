@@ -6,7 +6,7 @@
 import flet as ft
 
 
-class NavigationRail(ft.UserControl):
+class NavigationRail:
     """Боковое навигационное меню с иконками.
 
     Поддерживает сворачивание до иконок с анимацией scale (200ms).
@@ -14,10 +14,10 @@ class NavigationRail(ft.UserControl):
     """
 
     def __init__(self, on_nav_change, collapsed=False):
-        super().__init__()
         self.on_nav_change = on_nav_change
         self.collapsed = collapsed
         self._current_dest = "clients"
+        self.nav_rail = None
 
         # TODO: интегрировать с моделью данных
         self.destinations = [
@@ -102,14 +102,14 @@ class NavigationRail(ft.UserControl):
     def _toggle_collapse(self, e):
         """Переключает состояние сворачивания меню."""
         self.collapsed = not self.collapsed
-        self.nav_rail.extended = not self.collapsed
-        self.nav_rail.label_type = (
-            ft.NavigationRailLabelType.NONE if self.collapsed else ft.NavigationRailLabelType.ALL
-        )
-        # Обновляем видимость лейблов
-        for i, dest in enumerate(self.nav_rail.destinations):
-            dest.label.visible = not self.collapsed
-        self.update()
+        if self.nav_rail:
+            self.nav_rail.extended = not self.collapsed
+            self.nav_rail.label_type = (
+                ft.NavigationRailLabelType.NONE if self.collapsed else ft.NavigationRailLabelType.ALL
+            )
+            # Обновляем видимость лейблов
+            for i, dest in enumerate(self.nav_rail.destinations):
+                dest.label.visible = not self.collapsed
 
     def set_collapsed(self, collapsed: bool):
         """Устанавливает состояние сворачивания программно."""
@@ -118,7 +118,7 @@ class NavigationRail(ft.UserControl):
             self._toggle_collapse(None)
 
 
-class ResponsiveNavigation(ft.UserControl):
+class ResponsiveNavigation:
     """Адаптивная навигация с поддержкой мобильных устройств.
 
     На экранах >= 800px показывает боковое меню.
@@ -126,10 +126,10 @@ class ResponsiveNavigation(ft.UserControl):
     """
 
     def __init__(self, on_nav_change):
-        super().__init__()
         self.on_nav_change = on_nav_change
         self.sidebar = NavigationRail(on_nav_change=on_nav_change, collapsed=False)
         self.drawer_open = False
+        self.page = None
 
     def build_drawer(self):
         """Создает выдвижное меню для мобильных устройств."""
@@ -168,9 +168,10 @@ class ResponsiveNavigation(ft.UserControl):
 
     def _on_drawer_select(self, dest_id):
         """Обработчик выбора пункта из drawer."""
-        self.page.close_drawer()
+        if self.page:
+            self.page.close_drawer()
         self.on_nav_change(dest_id)
 
     def build(self):
         """Строит адаптивный компонент навигации."""
-        return self.sidebar
+        return self.sidebar.build()
