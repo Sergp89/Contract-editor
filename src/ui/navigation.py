@@ -85,7 +85,7 @@ class NavigationRail:
             group_alignment=-0.95,
             destinations=self._build_destinations(),
             label_type=ft.NavigationRailLabelType.NONE if self.collapsed else ft.NavigationRailLabelType.ALL,
-            on_destination_change=self._on_destination_change,
+            on_change=self._on_destination_change,
             bgcolor=ft.Colors.SURFACE,
             elevation=2,
         )
