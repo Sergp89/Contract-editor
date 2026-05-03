@@ -12,9 +12,9 @@ class SkeletonLoader(ft.Container):
         super().__init__(
             height=height,
             width=width,
-            bgcolor=ft.colors.ELEVATION_2,
+            bgcolor=ft.colors.with_opacity(0.3, ft.colors.ON_SURFACE),
             border_radius=ft.border_radius.all(8),
-            animate_opacity=ft.animation.Animation(300, ft.AnimationCurve.EASE_IN_OUT),
+            animate_opacity=300,
             opacity=0.7,
         )
 
@@ -23,7 +23,7 @@ class ContentArea(ft.Column):
     """Main content area with animated transitions."""
 
     def __init__(self):
-        super().__init__(spacing=16)
+        super().__init__(spacing=16, expand=True)
         self._current_index = 0
         self._loading = True
         self._content_map = {
@@ -50,7 +50,13 @@ class ContentArea(ft.Column):
         # TODO: интегрировать с моделью данных для отображения клиентов
         return ft.Column(
             controls=[
-                ft.Text("Клиенты", size=24, weight=ft.FontWeight.BOLD),
+                ft.Row(
+                    controls=[
+                        ft.Icon(ft.icons.PEOPLE, size=32, color=ft.colors.PRIMARY),
+                        ft.Text("Клиенты", size=24, weight=ft.FontWeight.BOLD),
+                    ],
+                    spacing=12,
+                ),
                 ft.Divider(),
                 ft.Text("Список клиентов будет загружен здесь..."),
             ],
@@ -62,7 +68,13 @@ class ContentArea(ft.Column):
         # TODO: интегрировать с моделью данных для отображения договоров
         return ft.Column(
             controls=[
-                ft.Text("Договоры", size=24, weight=ft.FontWeight.BOLD),
+                ft.Row(
+                    controls=[
+                        ft.Icon(ft.icons.DESCRIPTION, size=32, color=ft.colors.PRIMARY),
+                        ft.Text("Договоры", size=24, weight=ft.FontWeight.BOLD),
+                    ],
+                    spacing=12,
+                ),
                 ft.Divider(),
                 ft.Text("Список договоров будет загружен здесь..."),
             ],
@@ -74,7 +86,13 @@ class ContentArea(ft.Column):
         # TODO: интегрировать с моделью данных для отображения шаблонов
         return ft.Column(
             controls=[
-                ft.Text("Шаблоны", size=24, weight=ft.FontWeight.BOLD),
+                ft.Row(
+                    controls=[
+                        ft.Icon(ft.icons.ART_TRACK, size=32, color=ft.colors.PRIMARY),
+                        ft.Text("Шаблоны", size=24, weight=ft.FontWeight.BOLD),
+                    ],
+                    spacing=12,
+                ),
                 ft.Divider(),
                 ft.Text("Библиотека шаблонов будет загружена здесь..."),
             ],
@@ -86,7 +104,13 @@ class ContentArea(ft.Column):
         # TODO: интегрировать с моделью данных для AI-помощника
         return ft.Column(
             controls=[
-                ft.Text("AI-помощник", size=24, weight=ft.FontWeight.BOLD),
+                ft.Row(
+                    controls=[
+                        ft.Icon(ft.icons.PSYCHOLOGY, size=32, color=ft.colors.PRIMARY),
+                        ft.Text("AI-помощник", size=24, weight=ft.FontWeight.BOLD),
+                    ],
+                    spacing=12,
+                ),
                 ft.Divider(),
                 ft.Text("AI-ассистент готов помочь с документами..."),
             ],
@@ -98,7 +122,13 @@ class ContentArea(ft.Column):
         # TODO: интегрировать с моделью данных для настроек
         return ft.Column(
             controls=[
-                ft.Text("Настройки", size=24, weight=ft.FontWeight.BOLD),
+                ft.Row(
+                    controls=[
+                        ft.Icon(ft.icons.SETTINGS, size=32, color=ft.colors.PRIMARY),
+                        ft.Text("Настройки", size=24, weight=ft.FontWeight.BOLD),
+                    ],
+                    spacing=12,
+                ),
                 ft.Divider(),
                 ft.Text("Параметры приложения будут здесь..."),
             ],
@@ -155,16 +185,16 @@ class TopAppBar(ft.Row):
         
         self._search_field = ft.TextField(
             hint_text="Поиск...",
-            prefix_icon=ft.icons.Icons.SEARCH,
+            prefix_icon=ft.icons.SEARCH,
             border=ft.InputBorder.NONE,
             filled=True,
-            fill_color=ft.colors.ELEVATION_2,
+            fill_color=ft.colors.with_opacity(0.1, ft.colors.ON_SURFACE),
             expand=True,
             on_change=self._handle_search_change,
         )
 
         self._theme_button = ft.IconButton(
-            icon=ft.icons.Icons.LIGHT_MODE,
+            icon=ft.icons.LIGHT_MODE,
             tooltip="Переключить тему",
             on_click=self._handle_theme_toggle,
         )
@@ -174,7 +204,7 @@ class TopAppBar(ft.Row):
             ft.VerticalDivider(width=1),
             self._theme_button,
             ft.IconButton(
-                icon=ft.icons.Icons.ACCOUNT_CIRCLE_OUTLINED,
+                icon=ft.icons.ACCOUNT_CIRCLE_OUTLINED,
                 tooltip="Профиль",
             ),
         ]
@@ -183,7 +213,7 @@ class TopAppBar(ft.Row):
         """Handle theme toggle button click."""
         self._is_dark = not self._is_dark
         self._theme_button.icon = (
-            ft.icons.Icons.DARK_MODE if self._is_dark else ft.icons.Icons.LIGHT_MODE
+            ft.icons.DARK_MODE if self._is_dark else ft.icons.LIGHT_MODE
         )
         if self._on_theme_toggle:
             self._on_theme_toggle(self._is_dark)
@@ -242,32 +272,32 @@ class Dashboard(ft.Column):
         return ft.NavigationDrawer(
             controls=[
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.Icons.PEOPLE_OUTLINE,
-                    selected_icon=ft.icons.Icons.PEOPLE,
+                    icon=ft.icons.PEOPLE_OUTLINED,
+                    selected_icon=ft.icons.PEOPLE,
                     label="Клиенты",
                 ),
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.Icons.DESCRIPTION_OUTLINED,
-                    selected_icon=ft.icons.Icons.DESCRIPTION,
+                    icon=ft.icons.DESCRIPTION_OUTLINED,
+                    selected_icon=ft.icons.DESCRIPTION,
                     label="Договоры",
                 ),
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.Icons.ART_TRACK_OUTLINED,
-                    selected_icon=ft.icons.Icons.ART_TRACK,
+                    icon=ft.icons.ART_TRACK_OUTLINED,
+                    selected_icon=ft.icons.ART_TRACK,
                     label="Шаблоны",
                 ),
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.Icons.PSYCHOLOGY_OUTLINED,
-                    selected_icon=ft.icons.Icons.PSYCHOLOGY,
+                    icon=ft.icons.PSYCHOLOGY_OUTLINED,
+                    selected_icon=ft.icons.PSYCHOLOGY,
                     label="AI-помощник",
                 ),
                 ft.NavigationDrawerDestination(
-                    icon=ft.icons.Icons.SETTINGS_OUTLINED,
-                    selected_icon=ft.icons.Icons.SETTINGS,
+                    icon=ft.icons.SETTINGS_OUTLINED,
+                    selected_icon=ft.icons.SETTINGS,
                     label="Настройки",
                 ),
             ],
-            on_destination_change=self._handle_drawer_change,
+            on_change=self._handle_drawer_change,
         )
 
     def _handle_drawer_change(self, e):
@@ -322,7 +352,7 @@ class Dashboard(ft.Column):
 
         # Hamburger button for mobile
         self._hamburger_button = ft.IconButton(
-            icon=ft.icons.Icons.MENU,
+            icon=ft.icons.MENU,
             tooltip="Меню",
             visible=False,
             on_click=self._toggle_mobile_menu,
