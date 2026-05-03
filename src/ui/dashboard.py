@@ -21,8 +21,8 @@ class SkeletonLoader:
         return ft.Container(
             height=self.height,
             width=self.width,
-            bgcolor=ft.colors.with_opacity(0.1, ft.colors.ON_SURFACE),
-            border_radius=ft.border_radius.all(8),
+            bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.ON_SURFACE),
+            border_radius=ft.BorderRadius.all(8),
             opacity=0.3,
             animate_opacity=300,
         )
@@ -153,7 +153,7 @@ class ContentArea:
 
         return ft.Container(
             content=self.animated_switcher,
-            padding=ft.padding.all(24),
+            padding=ft.Padding.all(24),
             expand=True,
         )
 
@@ -182,14 +182,14 @@ class TopAppBar:
         """Строит компонент верхней панели."""
         self.search_field = ft.TextField(
             hint_text="Поиск...",
-            prefix_icon=ft.icons.SEARCH,
+            prefix_icon=ft.Icons.SEARCH,
             expand=True,
             on_change=self._on_search_change,
-            border_radius=ft.border_radius.all(20),
+            border_radius=ft.BorderRadius.all(20),
         )
 
         self.theme_toggle = ft.IconButton(
-            icon=ft.icons.DARK_MODE_OUTLINED,
+            icon=ft.Icons.DARK_MODE_OUTLINED,
             on_click=self._toggle_theme,
             tooltip="Переключить тему",
         )
@@ -198,20 +198,20 @@ class TopAppBar:
             content=ft.Row(
                 controls=[
                     self.search_field,
-                    ft.IconButton(icon=ft.icons.NOTIFICATIONS_OUTLINED),
+                    ft.IconButton(icon=ft.Icons.NOTIFICATIONS_OUTLINED),
                     self.theme_toggle,
                     ft.CircleAvatar(
                         content=ft.Text("U", size=14),
                         radius=16,
-                        bgcolor=ft.colors.PRIMARY,
-                        color=ft.colors.ON_PRIMARY,
+                        bgcolor=ft.Colors.PRIMARY,
+                        color=ft.Colors.ON_PRIMARY,
                     ),
                 ],
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                 vertical_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            padding=ft.padding.symmetric(horizontal=16, vertical=8),
-            bgcolor=ft.colors.SURFACE,
+            padding=ft.Padding.symmetric(horizontal=16, vertical=8),
+            bgcolor=ft.Colors.SURFACE,
             elevation=2,
         )
 
@@ -290,7 +290,7 @@ class Dashboard:
                 # Боковое меню
                 ft.Container(
                     content=self.sidebar,
-                    bgcolor=ft.colors.SURFACE,
+                    bgcolor=ft.Colors.SURFACE,
                     # Анимация scale при сворачивании
                     animate_scale=200,
                 ),
